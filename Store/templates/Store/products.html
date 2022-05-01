@@ -1,0 +1,22 @@
+{% extends 'store/base.html' %} {% load static %} {% block content %}
+<div class="container-fluid mt-3 d-lg-flex">
+  <section class="filter_section col-lg-2">Sort by</section>
+  <section class="product_grid col-lg-10 d-lg-flex justify-content-center mt-lg-4">
+    {% for Product in Products %}
+    <div class="d-lg-flex flex-column product-card product mb-4 mx-3 pb-3 px-2 align-items-center">
+      <img id="product-img" class="img-fluid" src="{{Product.image}}" alt="product-image" />
+      <p class="text-center">{{Product.title}}|<span>{{Product.size}}</span></p>
+      <p><strong>£{{Product.unit_price}}</strong> </p>
+      <div class="mt-lg-3">
+        <a href="{% url 'add_to_cart' Product.id %}"><button class="btn  btn-outline-dark add-btn">Add to
+            Cart</button> </a>
+        <a href=""><button class="btn btn-outline-success">Details</button> </a>
+      </div>
+
+    </div>
+    {% endfor %}
+  </section>
+</div>
+
+{{cart}}Hello
+{% endblock %}

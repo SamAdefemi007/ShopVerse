@@ -1,0 +1,20 @@
+{% extends 'store/base.html' %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container-fluid">
+
+    <div class="d-lg-flex flex-column align-items-center mt-5">
+        <h3>Create an account</h3>
+        <form class="d-lg-flex flex-column" action="" , method="POST">
+            {% csrf_token %}
+            {{form|crispy}}
+            <input class="w-25 mt-3" type="submit" value="Sign Up">
+        </form>
+        </form>
+
+    </div>
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'store/base.html' %} {% block content %}
+<div class="container-fluid">
+    <div class="d-lg-flex flex-column justify-content-center border border-dark">
+        {% for Product in Products %}
+        <div class="d-lg-flex ">
+
+            <img id="product-detailsimg" class="img-fluid d-block w-50" src="{{Product.image}}" alt="">
+            <div class="ms-3 mt-3">
+                <h4>{{Product.title}}</h4>
+                <p class="mt-2">{{Product.fit}}</p>
+                <div>
+                    <a href=""><button>Add to Cart</button></a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="border border-success px-3 py-3">
+            <h4>{{Product.title}}</h4>
+            <hr>
+            <p> <span>Description:</span> <span>{{Product.details}}</span> </p>
+            <p>Brand: {{Product.brand}}</p>
+            <p>Size: {{Product.size}}</p>
+            <p>Material : {{Product.material}}</p>
+            <p>Price : {{Product.unit_price}}</p>
+            <p>Care Instructions: {{Product.care}}</p>
+            <p>Available Color(s): {{Product.color}}</p>
+            <p>Ideal for: {{Product.category.title}}</p>
+            <p>Style: {{Product.style}}</p>
+            <p>Kind: {{Product.kind}}</p>
+        </div>
+
+
+        {% endfor %}
+    </div>
+
+
+</div>{% endblock %}

@@ -34,6 +34,7 @@ class Products(models.Model):
     size = models.CharField(max_length=10)
     brand = models.CharField(max_length=255)
     unit_price = models.DecimalField(max_digits=6, decimal_places=2)
+    discounted_price = models.DecimalField(max_digits=6, decimal_places=2)
     image = models.URLField(max_length=2000)
     title = models.CharField(max_length=1000)
     material = models.CharField(max_length=1000)
@@ -45,6 +46,7 @@ class Products(models.Model):
     style = models.CharField(max_length=5000)
     kind = models.CharField(max_length=200)
     fit = models.CharField(max_length=200)
+    Rating = models.FloatField(default=0.0)
 
     def __str__(self):
         return f"{self.collection.title}: {self.title}"

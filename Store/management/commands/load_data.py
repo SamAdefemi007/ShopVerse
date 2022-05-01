@@ -6,7 +6,7 @@ from turtle import title
 from unicodedata import decimal
 from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth.models import User
-from store.models import Customer, Products, Collection, Category, Order, OrderItem, Cart, CartItem
+from Store.models import Customer, Products, Collection, Category, Order, OrderItem, Cart, CartItem
 from pathlib import Path
 from faker import Faker
 
@@ -24,7 +24,7 @@ class Command(BaseCommand):
 
         # loading the products catalog into the database
 
-        with open(str(base_dir) + '/store/data/products.csv', newline='') as file:
+        with open(str(base_dir) + '/Store/data/products.csv', newline='') as file:
             reader = csv.reader(file, delimiter=",")
             next(reader)  # skip the header line
             collection_list, category_list = [], []
@@ -48,18 +48,20 @@ class Command(BaseCommand):
                     category_object = Category.objects.get(title=row[15])
 
                 Products.objects.create(
-                    size=row[1],
-                    brand=row[2],
-                    unit_price=float(row[13]),
-                    image=row[8],
-                    title=row[5],
-                    material=row[4],
-                    care=row[3],
-                    color=row[7],
-                    details=row[10],
-                    style=row[12],
-                    kind=row[16],
-                    fit=row[11],
+                    size=row[0],
+                    brand=row[1],
+                    unit_price=float(row[12]),
+                    discounted_price=float(row[13]),
+                    image=row[7],
+                    title=row[4],
+                    material=row[3],
+                    care=row[2],
+                    color=row[6],
+                    details=row[9],
+                    style=row[11],
+                    kind=row[15],
+                    fit=row[10],
+                    Rating=row[17],
                     collection=collection_object,
                     category=category_object,)
 

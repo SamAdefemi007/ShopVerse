@@ -1,11 +1,15 @@
 {% extends 'store/base.html' %}
-
+{% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="container-fluid">
+<div class="container reg-form">
+    <div class="logo-small">
+        <img src="{% static 'images/logo.png' %}" alt="">
+        <p class="name">ShopVerse</p>
+    </div>
 
-    <div class="d-lg-flex flex-column align-items-center mt-5">
-        <h3>Create an account</h3>
+    <div class="d-lg-flex  flex-column align-items-center mt-5">
+
         <form class="d-lg-flex flex-column" action="" , method="POST">
             {% csrf_token %}
             {{form|crispy}}

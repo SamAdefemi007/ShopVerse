@@ -7,6 +7,12 @@ background-color: hsl(0, 0%, 98%);
 font-family: 'Inter',
 sans-serif;
 }
+ul{
+    list-style-type: none;
+}
+.nav-link a{
+    text-decoration: none;
+}
 
 nav{
     box-shadow: 0px 4px 6px #888888;
@@ -62,6 +68,7 @@ input::-webkit-input-placeholder{
 .nav-link{
     color: black !important;
     padding: 10px;
+    text-decoration: none;
 }
 
 .filter_section{
@@ -478,5 +485,29 @@ footer .under-footer a:hover {
 .product_section .options .option2:hover {
     background-color: transparent;
     color: #000000;
+}
+
+.pagination li a {
+    font-size: larger ;
+    color: blue;
+}
+
+.input-group{
+    white-space: nowrap;
+}
+
+.wrapper {
+    max-width: 350px;
+    min-height: 500px;
+    margin: 80px auto;
+    padding: 40px 30px 30px 30px;
+    background-color: #ecf0f3;
+    border-radius: 15px;
+    box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
+}
+
+.logo-small {
+    width: 80px;
+    margin: auto;
 }
 

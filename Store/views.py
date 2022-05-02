@@ -5,6 +5,7 @@ from .forms import RegisterForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 # Create your views here.
 
 
@@ -14,17 +15,17 @@ def homepage(request):
 
 
 def products(request):
-
-    Collection_type = request.GET.get('collection_type')
+    productObj = {}
     category_type = request.GET.get("category_type")
-    if category_type is None:
+    if category_type:
         productObj = Products.objects.filter(
-            collection__title=Collection_type)[:15]
-    else:
-        productObj = Products.objects.filter(
-            collection__title=Collection_type, category__title=category_type)[:15]
+            category__title=category_type)
 
-    return render(request, 'store/products.html', {'Products': productObj})
+    paginator = Paginator(productObj, 24)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'store/products.html', {'page_obj': page_obj, 'category': category_type})
 
 
 def productDetail(request, product_id):

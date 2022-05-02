@@ -621,3 +621,7 @@ input {
     width: 80%;
     border-radius: 5px;
 }
+
+table,tbody,tr,td{
+    padding-left: 0;
+}

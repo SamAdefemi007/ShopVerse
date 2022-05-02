@@ -145,3 +145,5 @@ class CartItem(models.Model):
     def calculate_total(self):
         total = self.product.unit_price * self.quantity
         return total
+
+

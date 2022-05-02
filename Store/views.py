@@ -72,7 +72,7 @@ def add_to_cart(request, product_id):
         cart=cart, product=product, quantity=1)
     cart.save()
     cartitem.save()
-    return redirect('products')
+    return redirect('homepage')
 
 
 def remove_from_cart(request, product_id):
@@ -94,3 +94,15 @@ def checkout(request):
         cartitems = []
         cart = {'get_cart_total': 0, 'total_items': 0}
     return render(request, 'store/checkout.html', {'cartitems': cartitems, 'cart': cart})
+
+
+def order(request):
+    if request.user.is_authenticated:
+        customer = Customer.objects.get(user=request.user)
+        order, created = Order.objects.get_or_create(customer=customer)
+        cartitems = cart.items.all()
+        print(cart.get_cart_total)
+    else:
+        cartitems = []
+        cart = {'get_cart_total': 0, 'total_items': 0}
+    return render(request, 'store/cart.html', {'cartitems': cartitems, 'cart': cart})

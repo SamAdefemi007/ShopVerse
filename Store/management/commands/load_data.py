@@ -65,65 +65,65 @@ class Command(BaseCommand):
                     collection=collection_object,
                     category=category_object,)
 
-# # creating customer details in the database
-#         fake = Faker()
+# creating customer details in the database
+        fake = Faker()
 
-#         for i in range(5):
-#             first_name = fake.first_name()
-#             last_name = fake.last_name()
-#             username = first_name+last_name
+        for i in range(10, 25):
+            first_name = fake.first_name()
+            last_name = fake.last_name()
+            username = first_name+last_name
 
-#             user = User.objects.create(
-#                 first_name=first_name,
-#                 last_name=last_name,
-#                 email=fake.ascii_free_email(),
-#                 password=fake.password(),
-#                 username=username
-#             )
+            user = User.objects.create_user(
+                first_name=first_name,
+                last_name=last_name,
+                email=fake.ascii_free_email(),
+                password='P@ssWorD123',
+                username=username
+            )
 
-#             customer = Customer.objects.create(
-#                 user=user,
-#                 phone=fake.phone_number(),
-#                 birth_date=fake.date()
-#             )
+            customer = Customer.objects.get(
+                user=user
+            )
+            customer.phone = fake.phone_number(),
+            customer.birth_date = fake.date()
 
-#             customer.save()
+            customer.save()
 
-#             # creating orders and orderItem from customer details and products
+        # creating orders and orderItem from customer details and products
 
-#             customer_object = Customer.objects.all()
-#             product_list = Products.objects.all()
-#             product = list(product_list)
-#             for customer in customer_object:
-#                 randproduct = random.randint(0, len(product))
-#                 cart = Cart.objects.create(
+            customer_object = Customer.objects.all()
+            product_list = Products.objects.all()
+            product = list(product_list)
+            for customer in customer_object:
+                randproduct = random.randint(0, len(product))
+                cart = Cart.objects.create(
+                    customer=customer
+                )
+                cart.save()
+                CartItem.objects.create(
+                    cart=cart,
+                    product=product[randproduct],
+                    quantity=random.randint(1, 10),
+                )
+                rand_num = random.randrange(1, 15)
+                for i in range(rand_num):
+                    choices = ["P", "C", "F"]
+                    rand_choice = random.randrange(0, 3)
+                    status = choices[rand_choice]
+                    Order.objects.create(
+                        customer=customer,
+                        payment_status=status
+                    )
 
-#                 )
-#                 cart.save()
-#                 CartItem.objects.create(
-#                     cart=cart,
-#                     product=product[randproduct],
-#                     quantity=random.randint(1, 10),
-#                 )
-#                 rand_num = random.randrange(1, 15)
-#                 for i in range(rand_num):
-#                     choices = ["P", "C", "F"]
-#                     rand_choice = random.randrange(0, 3)
-#                     status = choices[rand_choice]
-#                     Order.objects.create(
-#                         customer=customer,
-#                         payment_status=status
-#                     )
+            order_object = Order.objects.all()
+            product_list = Products.objects.all()
+            product = list(product_list)
+            for order in order_object:
+                randproduct = random.randint(0, len(product)-1)
+                OrderItem.objects.create(
+                    order=order,
+                    product=product[randproduct],
+                    quantity=random.randint(1, 10),
+                )
 
-#             order_object = Order.objects.all()
-#             product_list = Products.objects.all()
-#             product = list(product_list)
-#             for order in order_object:
-#                 randproduct = random.randint(0, len(product))
-#                 OrderItem.objects.create(
-#                     order=order,
-#                     product=product[randproduct],
-#                     quantity=random.randint(1, 10),
-#                 )
-
-    print("data parsed successfully")
+        print("data parsed successfully")

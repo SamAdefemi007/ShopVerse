@@ -54,11 +54,15 @@
                     <span>
                         Quantity
                     </span>
-                    <input type="number" class=" w-25 d-inline-block form-control bg-light text-dark text-center"
-                        value="1" autocomplete="off" name="quantity">
+                    <form action="">
+                        <input type="number" class=" w-25 d-inline-block form-control bg-light text-dark text-center"
+                            autocomplete="off" name="quantity">
+                    </form>
+
 
                 </div>
-                <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                <a href="{% url 'add_to_cart' Product.id %}"><button class="btn btn-primary px-3"><i
+                            class="fa fa-shopping-cart mr-1"></i> Add To Cart</button></a>
             </div>
             <a href="{% url 'homepage' %}"><button class="btn btn-warning text-dark px-3"><i
                         class="fas fa-arrow-left me-1"></i>Continue

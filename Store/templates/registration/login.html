@@ -1,33 +1,30 @@
-{% extends 'store/base.html' %}
-{% load static %}
-{% block content %}
-
+{% extends 'store/base.html' %} {% load static %} {% block content %}
 
 <div class="wrapper">
-    <div class="logo-small">
-        <img src="{% static 'images/logo.png' %}" alt="">
+  <div class="logo-small">
+    <img src="{% static 'images/logo.png' %}" alt="" />
+  </div>
+  <div class="text-center mt-4 name">
+    <h4>Login to ShopVerse</h4>
+  </div>
+  <div class="text-danger">{{form.non_field_errors}}</div>
+  <form class="p-3 mt-3" method="post">
+    {% csrf_token %}
+
+    <div class="form-field d-flex align-items-center">
+      <span class="far fa-user"></span>
+      {{form.username}}
     </div>
-    <div class="text-center mt-4 name">
-        <h4>Login to ShopVerse</h4>
+    <div class="form-field d-flex align-items-center">
+      <span class="fas fa-key"></span>
+      {{form.password}}
     </div>
-    <form class="p-3 mt-3" method="post">
-        {% csrf_token %}
-        <div class="form-field d-flex align-items-center">
-            <span class="far fa-user"></span>
-            {{form.username}}
-        </div>
-        <div class="form-field d-flex align-items-center">
-            <span class="fas fa-key"></span>
-            {{form.password}}
-        </div>
-        <button type="submit" class="btn mt-3">Login</button>
-    </form>
-    <div class="text-center fs-6">
-        <a href="{% url 'Store:password_reset' %}">Forget password?</a> or <a href="{% url 'Store:register' %}">Sign
-            up</a>
-    </div>
+    <button type="submit" class="btn mt-3">Login</button>
+  </form>
+  <div class="text-center fs-6">
+    <a href="{% url 'Store:password_reset' %}">Forget password?</a> or
+    <a href="{% url 'Store:register' %}">Sign up</a>
+  </div>
 </div>
-
-
 
 {% endblock %}

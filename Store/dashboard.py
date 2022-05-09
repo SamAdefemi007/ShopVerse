@@ -1,6 +1,7 @@
 import imp
 from .models import *
-from django.db.models import Count
+from django.db.models import Count, Sum, Q
+from django.db.models.functions import TruncMonth
 
 
 def category_data():
@@ -171,3 +172,10 @@ def order_data():
         'series': [order_data_source],
     }
     return order_chart_data
+
+
+# def order_revenue():
+#     orders = Order.objects.filter(payment_status="C").values(
+#         'order_placed_at').annotate(sum=Sum('orderitem.getrevenue'))
+
+#     print(orders)

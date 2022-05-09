@@ -16,5 +16,6 @@ urlpatterns = [
          views.remove_from_cart, name="remove_from_cart"),
 
     path('dashboard/', views.dashboard, name="dashboard"),
+    path('search/', views.productSearch, name="search")
 
 ]

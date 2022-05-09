@@ -15,7 +15,7 @@ class Command(BaseCommand):
     help = 'loads the product catalog into the database'
 
     def handle(self, *args, **options):
-        for table in [OrderItem, Products, Customer, Collection, Category,  Order, CartItem, Cart, ]:
+        for table in [Order, OrderItem, Products, Customer, Collection, Category, Order, CartItem, Cart]:
             table.objects.all().delete()
 
         print("Tables dropped successfully")
@@ -65,7 +65,7 @@ class Command(BaseCommand):
                     collection=collection_object,
                     category=category_object,)
 
-# creating customer details in the database
+# # creating customer details in the database
         fake = Faker()
 
         for i in range(10, 25):
@@ -89,7 +89,7 @@ class Command(BaseCommand):
 
             customer.save()
 
-        # creating orders and orderItem from customer details and products
+        # # creating orders and orderItem from customer details and products
 
             customer_object = Customer.objects.all()
             product_list = Products.objects.all()
@@ -112,18 +112,20 @@ class Command(BaseCommand):
                     status = choices[rand_choice]
                     Order.objects.create(
                         customer=customer,
-                        payment_status=status
+                        payment_status=status,
+                        order_placed_at=fake.date_between(
+                            start_date='-1y', end_date='today')
                     )
 
-            order_object = Order.objects.all()
-            product_list = Products.objects.all()
-            product = list(product_list)
-            for order in order_object:
-                randproduct = random.randint(0, len(product)-1)
-                OrderItem.objects.create(
-                    order=order,
-                    product=product[randproduct],
-                    quantity=random.randint(1, 10),
-                )
+                order_object = Order.objects.all()
+                product_list = Products.objects.all()
+                product = list(product_list)
+                for order in order_object:
+                    randproduct = random.randint(0, len(product)-1)
+                    OrderItem.objects.create(
+                        order=order,
+                        product=product[randproduct],
+                        quantity=random.randint(1, 10),
+                    )
 
         print("data parsed successfully")

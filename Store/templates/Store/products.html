@@ -5,6 +5,41 @@
 
 
   <section class=" col-lg-2 col-sm-3 col-md-3">
+    {% if not category %}
+    <div class="border-bottom mb-4 pb-4">
+      <h5 class="font-weight-semi-bold mb-4">Filter by Category</h5>
+      <form>
+        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+          <label class="custom-control-label" for="All-cat">All Categories</label>
+          <input type="checkbox" class="custom-control-input" checked id="All-cat" name="All" value="all">
+
+        </div>
+        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+          <label class="custom-control-label" for="Women-cat">Women</label>
+          <input type="checkbox" class="custom-control-input" name="category_type" value="Women">
+
+        </div>
+        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+          <label class="custom-control-label" for="Men-cat">Men</label>
+          <input type="checkbox" class="custom-control-input" name="category_type" value="Women">
+
+        </div>
+        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+          <label class="custom-control-label" for="Boys-cat">Boys</label>
+          <input type="checkbox" class="custom-control-input" id="Boys-cat">
+
+        </div>
+        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+          <label class="custom-control-label" for="Girls-cat">Girls</label>
+          <input type="checkbox" class="custom-control-input" id="Girls-cat">
+
+        </div>
+
+        <input type="submit" name="submit" value="Apply Categories Filter">
+      </form>
+
+    </div>
+    {% endif %}
     <div class="border-bottom mb-4 pb-4">
       <h5 class="font-weight-semi-bold mb-4">Filter by price</h5>
       <form>
@@ -83,9 +118,9 @@
     <div class="row pb-3">
       <div class="col-12 pb-1">
         <div class="d-flex align-items-center justify-content-between mb-4">
-          <form action="">
+          <form action="{% url 'Store:search' %}">
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search by name">
+              <input type="text" class="form-control" placeholder="Search by name" name="search">
               <div class="input-group-append">
                 <span class="input-group-text bg-transparent text-primary mt-1">
                   <i class="fa fa-search"></i>
@@ -141,15 +176,18 @@
           <ul class="justify-content-center mb-3 d-flex py-2 pagination ">
             {% if page_obj.has_previous %}
             <li class=" nav-link">
-              <a href="?category_type={{category}}&page=1">&laquo; First page</a>
+              <a {% if category %} href="?category_type={{category}}&page=1" {% elif search %}
+                href="?search={{search}}&page=1" {% else %} href="?page=1" {% endif %}>&laquo; First page</a>
 
 
             </li>
             <li class=" nav-link">
-              <a class="" href="?category_type={{category}}&page={{ page_obj.previous_page_number }}"
-                aria-label="Previous">
+              <a class="" {% if category %} href="?category_type={{category}}&page={{ page_obj.previous_page_number }}"
+                {% elif search %} href="?search={{search}}&page={{ page_obj.previous_page_number}}" {% else %}
+                href="?page={{ page_obj.previous_page_number }}" {% endif %} aria-label="Previous">
                 <span>Previous</span>
               </a>
+
 
             </li>
             {% endif %}
@@ -158,14 +196,17 @@
 
             {% if page_obj.has_next %}
             <li class="nav-link">
-              <a class="d-block" href="?category_type={{category}}&page={{ page_obj.next_page_number }}"
-                aria-label="Next">
+
+              <a class="d-block" {% if category %}
+                href="?category_type={{category}}&page={{ page_obj.next_page_number }}" {% elif search %}
+                href="?search={{search}}&page={{ page_obj.next_page_number }}" {% else %}
+                href="?page={{ page_obj.next_page_number }}" {% endif %} aria-label="Next">
                 <span>Next&raquo;</span>
               </a>
-
             </li>
-            <li class="nav-link">
-              <a href="?category_type={{category}}&page={{ page_obj.paginator.num_pages }}">Last page </a>
+
+              <a {% if category %} href="?category_type={{category}}&page={{ page_obj.paginator.num_pages }}" {% elif search %} href="?search={{search}}&page={{page_obj.paginator.num_pages }}" {% else %}
+                href="?page={{ page_obj.paginator.num_pages }}" {% endif %}>Last page </a>
 
             </li>
 

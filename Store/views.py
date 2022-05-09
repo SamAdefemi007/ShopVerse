@@ -12,6 +12,7 @@ from django.core import serializers
 from django.http import JsonResponse, HttpResponseRedirect
 from django.db.models import Count
 from .dashboard import category_data, brand_data, order_data
+from django.db.models import Q
 
 # Create your views here.
 
@@ -30,8 +31,11 @@ def products(request):
             category__title=category_type)
 
     else:
+        print("we are here")
         productObj = Products.objects.all()
 
+    if request.method == "POST":
+        category_type = request.POST.get("")
     paginator = Paginator(productObj, 24)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -41,6 +45,7 @@ def products(request):
 
 def productDetail(request, product_id):
     productObj = Products.objects.filter(pk=product_id)
+
     return render(request, 'store/productdetails.html', {'Products': productObj})
 
 
@@ -57,7 +62,7 @@ def register(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)
             login(request, user)
-            return redirect('homepage')
+            return redirect('Store:homepage')
 
     return render(request, 'store/register.html', {'form': form})
 
@@ -132,13 +137,28 @@ def dashboard(request):
     category_chart_data = category_data()
     # brands segmentation
     brand_chart_data = brand_data()
-    order_chart_data  = order_data()
+    order_chart_data = order_data()
 
-    print(order_data())
     context = {
         'category_wise_pie_data': json.dumps(category_chart_data),
         'brand_data': json.dumps(brand_chart_data),
-        'order_data':json.dumps(order_chart_data)
+        'order_data': json.dumps(order_chart_data)
     }
 
     return render(request, 'admin_dashboard.html', context)
+
+
+def productSearch(request):
+    search_field = request.GET.get("search")
+
+    if search_field:
+        productObj = Products.objects.filter(
+            Q(title__icontains=search_field) | Q(brand__icontains=search_field))
+        paginator = Paginator(productObj, 24)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+    else:
+        return redirect("Store:homepage")
+
+    return render(request, 'store/products.html', {'page_obj': page_obj, 'search': search_field})

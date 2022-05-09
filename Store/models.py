@@ -1,5 +1,7 @@
 import re
+from django.utils import timezone
 from unicodedata import category
+import django
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -7,6 +9,7 @@ from uuid import uuid4
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.exceptions import ObjectDoesNotExist
+import datetime
 # Create your models here.
 
 
@@ -87,7 +90,7 @@ class Order(models.Model):
         (PAYMENT_FAILED, 'Failed')
     ]
 
-    order_placed_at = models.DateTimeField(auto_now_add=True)
+    order_placed_at = models.DateTimeField(default=timezone.now)
     payment_status = models.CharField(
         max_length=1, choices=PAYMENT_STATUS_CHOICES, default=PAYMENT_PENDING)
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
@@ -105,6 +108,10 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.product} by {self.order}"
+
+    def get_revenue(self):
+        sales = self.product.discounted_price * self.quantity
+        return sales
 
 
 class Cart(models.Model):

@@ -1,10 +1,6 @@
-import os
 import random
 import csv
-from sqlite3 import Cursor
-from turtle import title
-from unicodedata import decimal
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 from Store.models import Customer, Products, Collection, Category, Order, OrderItem
 from pathlib import Path
@@ -15,7 +11,7 @@ class Command(BaseCommand):
     help = 'loads the product catalog into the database'
 
     def handle(self, *args, **options):
-        for table in [Order, OrderItem, Products, Customer, Collection, Category, Order, CartItem, Cart]:
+        for table in [Order, OrderItem, Products, Customer, Collection, Category, Order]:
             table.objects.all().delete()
 
         print("Tables dropped successfully")

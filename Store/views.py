@@ -1,4 +1,4 @@
-import json
+
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from .models import Cart, Collection, Category, Order, OrderItem, Products, Customer, CartItem
@@ -7,11 +7,11 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.contrib.admin.views.decorators import staff_member_required
+
 from django.core import serializers
 from django.http import JsonResponse, HttpResponseRedirect
 from django.db.models import Count
-from .dashboard import category_data, brand_data, order_data
+
 from django.db.models import Q
 
 # Create your views here.
@@ -130,22 +130,7 @@ def order(request):
     return render(request, 'store/cart.html', {'cartitems': cartitems, 'cart': cart})
 
 
-@staff_member_required
-def dashboard(request):
-    # Render Product segmentation
 
-    category_chart_data = category_data()
-    # brands segmentation
-    brand_chart_data = brand_data()
-    order_chart_data = order_data()
-
-    context = {
-        'category_wise_pie_data': json.dumps(category_chart_data),
-        'brand_data': json.dumps(brand_chart_data),
-        'order_data': json.dumps(order_chart_data)
-    }
-
-    return render(request, 'admin_dashboard.html', context)
 
 
 def productSearch(request):
@@ -159,6 +144,6 @@ def productSearch(request):
         page_obj = paginator.get_page(page_number)
 
     else:
-        return redirect("Store:homepage")
+        return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
 
     return render(request, 'store/products.html', {'page_obj': page_obj, 'search': search_field})

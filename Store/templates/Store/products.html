@@ -141,6 +141,15 @@
           </div>
         </div>
       </div>
+
+      {% if search and not page_obj %}
+      <div class="container my-5">
+        <h3 class="text-center">No results found</h3>
+      </div>
+
+
+      {% endif %}
+
       {% for Product in page_obj %}
       <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
 
@@ -205,7 +214,10 @@
               </a>
             </li>
 
-              <a {% if category %} href="?category_type={{category}}&page={{ page_obj.paginator.num_pages }}" {% elif search %} href="?search={{search}}&page={{page_obj.paginator.num_pages }}" {% else %}
+            <li class="nav-link">
+
+              <a {% if category %} href="?category_type={{category}}&page={{ page_obj.paginator.num_pages }}" {% elif
+                search %} href="?search={{search}}&page={{page_obj.paginator.num_pages }}" {% else %}
                 href="?page={{ page_obj.paginator.num_pages }}" {% endif %}>Last page </a>
 
             </li>

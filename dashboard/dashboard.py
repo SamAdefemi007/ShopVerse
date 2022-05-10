@@ -1,7 +1,7 @@
 import imp
-from .models import *
 from django.db.models import Count, Sum, Q
 from django.db.models.functions import TruncMonth
+from Store.models import Products, Order, OrderItem
 
 
 def category_data():

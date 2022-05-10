@@ -1,4 +1,4 @@
-{% extends 'store/base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 
 
 <div class="container-fluid mt-lg-5 row">
@@ -169,9 +169,9 @@
           <div class="card-footer d-flex justify-content-between bg-light border">
             <a href="{% url 'Store:productDetail' Product.id %}" class="btn btn-sm text-dark p-0"><i
                 class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-            <a href="{% url 'Store:add_to_cart' Product.id %}" class="btn btn-sm text-dark p-0"><i
-                class="fas fa-shopping-cart text-primary mr-1"></i>Add To
+            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To
               Cart</a>
+
           </div>
         </div>
 

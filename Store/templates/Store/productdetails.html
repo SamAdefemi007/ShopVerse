@@ -1,4 +1,4 @@
-{% extends 'store/base.html' %} {% block content %}
+{% extends 'base.html' %} {% block content %}
 
 {% for Product in Products %}
 <div class="container-fluid py-5">
@@ -61,10 +61,10 @@
 
 
                 </div>
-                <a href="{% url 'add_to_cart' Product.id %}"><button class="btn btn-primary px-3"><i
+                <a href=""><button class="btn btn-primary px-3"><i
                             class="fa fa-shopping-cart mr-1"></i> Add To Cart</button></a>
             </div>
-            <a href="{% url 'homepage' %}"><button class="btn btn-warning text-dark px-3"><i
+            <a href="{% url 'Store:products' %}"><button class="btn btn-warning text-dark px-3"><i
                         class="fas fa-arrow-left me-1"></i>Continue
                     Shopping
                 </button></a>

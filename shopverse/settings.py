@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'Store.apps.StoreConfig',
+    'Cart.apps.CartConfig',
     'crispy_forms',
     'dashboard.apps.DashboardConfig',
     'django.contrib.admin',
@@ -58,7 +59,7 @@ ROOT_URLCONF = 'shopverse.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR/'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,6 +130,7 @@ STATIC_URL = 'static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = "/home"
 LOGOUT_REDIRECT_URL = "/home"
@@ -137,3 +139,6 @@ EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
 
 mimetypes.add_type("text/css", ".css", True)
+
+
+CART_SESSION_ID = 'cart'

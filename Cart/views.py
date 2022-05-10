@@ -1,41 +1,41 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from Store.models import Cart, Customer, Products, CartItem
-from django.http import JsonResponse, HttpResponseRedirect
-from django.urls import reverse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.http import require_POST
+from Store.models import Products
+from Cart.shoppingCart import Cart
+from .forms import CartAddProductForm
+from decimal import Decimal
 
 
-def cart(request):
-    quantity = request.GET.get('quantity')
-    if request.user.is_authenticated:
-        customer = Customer.objects.get(user=request.user)
-        cart, created = Cart.objects.get_or_create(customer=customer)
-        cartitems = cart.items.all()
-        cartitems.quantity = quantity
+def cart_add(request, product_id):
+    cart = Cart(request)
+    product = get_object_or_404(Products, id=product_id)
+    form = CartAddProductForm(request.POST)
+    if form.is_valid():
+        cd = form.cleaned_data
+        cart.add(product=product,
+                 quantity=cd['quantity'], override_quantity=cd['override'])
 
-    else:
-        cartitems = []
-        cart = {'get_cart_total': 0, 'total_items': 0}
-    print(quantity)
-    return render(request, 'Cart/cart.html', {'cartitems': cartitems, 'cart': cart, 'quantity': quantity})
+    return redirect('Cart:cart')
 
 
-def add_to_cart(request, product_id):
-    quantity = request.GET.get('quantity')
-    print(quantity)
-    product = get_object_or_404(Products, pk=product_id)
-    customer = Customer.objects.get(user=request.user)
-    cart, created = Cart.objects.get_or_create(customer=customer)
-    cartitem, created = CartItem.objects.get_or_create(
-        cart=cart, product=product, quantity=1)
-    cart.save()
-    cartitem.save()
-    category = product.category.title
-    return HttpResponseRedirect(reverse('Store:products'))
+def cart_remove(request, product_id):
+    cart = Cart(request)
+    product = get_object_or_404(Products, id=product_id)
+    cart.remove(product)
+    return redirect('Cart:cart')
 
 
-def remove_from_cart(request, product_id):
-    product = get_object_or_404(Products, pk=product_id)
-    customer = Customer.objects.get(user=request.user)
-    cart = get_object_or_404(Cart, customer=customer)
-    CartItem.objects.get(cart=cart, product=product).delete()
-    return redirect('cart')
+def cart_clear(request):
+    cart = Cart(request)
+    cart.clear()
+    return redirect('Cart:cart')
+
+
+def cart_detail(request):
+    cart = Cart(request)
+    for item in cart:
+        item['update_quantity_form'] = CartAddProductForm(
+            initial={'quantity': item['quantity'], 'override': True})
+        item['get_line_total'] = Decimal(item['price']) * item['quantity']
+    print(cart)
+    return render(request, 'Cart/cart.html', {'cart': cart})

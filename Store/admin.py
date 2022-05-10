@@ -36,18 +36,5 @@ class OrderItemAdmin(admin.ModelAdmin):
         return obj.order.customer
 
 
-@admin.register(Cart)
-class CartAdmin(admin.ModelAdmin):
-    list_display = ('customer', 'created_at')
-
-
-@admin.register(CartItem)
-class CartItemAdmin(admin.ModelAdmin):
-    list_display = ('product', 'quantity', 'get_customer')
-
-    def get_customer(self, obj):
-        return obj.cart.customer
-
-
 admin.site.register(Collection)
 admin.site.register(Category)

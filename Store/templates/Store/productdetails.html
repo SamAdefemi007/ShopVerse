@@ -51,18 +51,17 @@
             </div>
             <div class="d-flex  align-items-center mb-4 pt-2">
                 <div class="mr-3" style="width: 300px;">
-                    <span>
-                        Quantity
-                    </span>
-                    <form action="">
-                        <input type="number" class=" w-25 d-inline-block form-control bg-light text-dark text-center"
-                            autocomplete="off" name="quantity">
+
+                    <form class="text-dark" action="{% url 'Cart:cart_add' Product.id %}" method="post">
+                        {{ cart_product_form }}
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add
+                            To
+                            Cart</button>
+
                     </form>
-
-
                 </div>
-                <a href=""><button class="btn btn-primary px-3"><i
-                            class="fa fa-shopping-cart mr-1"></i> Add To Cart</button></a>
+
             </div>
             <a href="{% url 'Store:products' %}"><button class="btn btn-warning text-dark px-3"><i
                         class="fas fa-arrow-left me-1"></i>Continue

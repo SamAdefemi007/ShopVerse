@@ -121,17 +121,8 @@
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
         {% endif %}
-        <div class="navbar-nav ms-lg-5 ms-3">
-          <a
-            class="d-lg-flex ps-lg-0 flex-column align-items-center me-lg-4 mt-2 mt-lg-0 text-decoration-none nav-link link-dark"
-            href="#"
-          >
-            <i class="far fa-heart ms-0"></i>
-            <p ms-0>Wishlist</p>
-          </a>
-        </div>
 
-        <div class="navbar-nav ms-3 ms-lg-3 flex-row">
+        <div class="navbar-nav ms-5 ms-lg-5 flex-row">
           <a
             class="d-lg-flex ps-0 flex-column align-items-center mt-2 mt-lg-0 text-decoration-none link-dark"
             href="{% url 'Cart:cart' %}"
@@ -140,7 +131,7 @@
             <p>Cart</p>
           </a>
           {% if not request.user.is_superuser %}
-          <p id="cart-total">{{count}}</p>
+          <p id="cart-total">{{cart.total_items}}</p>
           {% endif %}
         </div>
         {% if user.is_authenticated %}

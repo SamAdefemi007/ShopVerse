@@ -6,7 +6,7 @@ from turtle import title
 from unicodedata import decimal
 from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth.models import User
-from Store.models import Customer, Products, Collection, Category, Order, OrderItem, Cart, CartItem
+from Store.models import Customer, Products, Collection, Category, Order, OrderItem
 from pathlib import Path
 from faker import Faker
 
@@ -96,15 +96,6 @@ class Command(BaseCommand):
             product = list(product_list)
             for customer in customer_object:
                 randproduct = random.randint(0, len(product))
-                cart = Cart.objects.create(
-                    customer=customer
-                )
-                cart.save()
-                CartItem.objects.create(
-                    cart=cart,
-                    product=product[randproduct],
-                    quantity=random.randint(1, 10),
-                )
                 rand_num = random.randrange(1, 15)
                 for i in range(rand_num):
                     choices = ["P", "C", "F"]

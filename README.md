@@ -15,7 +15,7 @@
     <a href="https://github.com/SamAdefemi007/ShopVerse"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
+    <a href="https://shopverse.herokuapp.com/">View Demo</a>
     ·
     <a href="https://github.com/SamAdefemi007/ShopVerse/issues">Report Bug</a>
     ·
@@ -148,7 +148,7 @@ To setup locally, follow the steps bellow
   All users are able to navigate most of the pages of the application except the payments page and the user will be redirected to login when trying to place an order as an anonymous user. To test the application as logged in user, you can signup and create new login details or use the below
 
   ```sh
-  Username :Admin       Password:  Aberdeen2022
+  Username :admin       Password:  Aberdeen2022
   ```
 
 A superuser will need to be created to access the admin page of the application
@@ -183,6 +183,8 @@ Samuel Olaniyan - t14so21@abdn.ac.uk
 
 Project Link: [https://github.com/SamAdefemi007/ShopVerse](https://github.com/SamAdefemi007/ShopVerse)
 
+Deployed app: [https://shopverse.herokuapp.com/](https://shopverse.herokuapp.com/)
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- ACKNOWLEDGMENTS -->
@@ -197,4 +199,4 @@ Project Link: [https://github.com/SamAdefemi007/ShopVerse](https://github.com/Sa
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-##Extras for
+##Extras for Grading

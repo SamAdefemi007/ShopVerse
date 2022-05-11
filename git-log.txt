@@ -1,0 +1,48 @@
+* 0066413 : resolving errors
+* d307227 : heroku error
+* 27bc907 : heroku ready
+* 01863ad : updated readme
+* e63b9d9 : added a readme
+* dabfe7b : implemented behave tests
+* 1e18739 : more testing
+* 9fbead7 : unit testing
+* f549c5f : used session for cart and removed it from database
+* 338fe40 : refactored carts
+* cb25e52 : refactored the app and separated the functions into different applications
+* 2923fa2 : refactored the dashboard into a new application
+* a3848e4 : search field
+* 695a300 : working on the dashboard
+* b25e38d : worked on the checkout page
+* d93bbec : styled the password reset page
+* de0d54c : styled the login page
+* fd7a4de : styling login page
+* 11ac627 : finished working on the product detail templates and carts
+* dc61870 : loaded the products data into the database
+* ed7ea91 : added commands and the data
+* d60736b : added templates and designs for the homepage and product page
+* 1682b1c : made more migrations
+* 1dbaf6e : context-processor for all pages
+* b502b89 : psycopg and database setup
+* a919919 : more settings and reset email configurations
+* ef7e58c : registered the models
+* e2dc25a : urls configuration
+* c025c0f : created the forms class for the registration page
+* 33dcf21 : configured the models for migration to the database
+* b6bca83 : configured views for basic app functionality
+* 279bae0 : added css and images for the pages
+* b517a3d : added a registration folder for the login and password reset templates
+* 76a077b : added the registration template
+* abeeff8 : added the cart and checkout template
+* 518441f : added the product details template
+* c6513fe : added the product template
+* 8e44379 : added the base html template containing the reusable navbar and footer
+* 1b745c7 : added the footer page
+* a8227af : added navbar
+* 6c3a2ba : templating the page setup
+* 3b8db90 : changed database to postgres
+* a9d699f : tested the templates and setup
+* d677ada : connected the applications urls to the project
+* 869b54a : created the main application Store for the project
+* 8d9c995 : created a virtual environment
+* 608f4de : Delete README.md
+* 951397e : Initial commit

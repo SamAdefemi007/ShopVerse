@@ -61,14 +61,14 @@ def products(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'store/products.html', {'page_obj': page_obj, 'category': request.session["category_type"], 'cart_product_form': cart_product_form})
+    return render(request, 'Store/products.html', {'page_obj': page_obj, 'category': request.session["category_type"], 'cart_product_form': cart_product_form})
 
 
 def productDetail(request, product_id):
     cart_product_form = CartAddProductForm()
     productObj = Products.objects.filter(pk=product_id)
 
-    return render(request, 'store/productdetails.html', {'Products': productObj, 'cart_product_form': cart_product_form})
+    return render(request, 'Store/productdetails.html', {'Products': productObj, 'cart_product_form': cart_product_form})
 
 
 def register(request):
@@ -86,7 +86,7 @@ def register(request):
             login(request, user)
             return redirect('Store:homepage')
 
-    return render(request, 'store/register.html', {'form': form})
+    return render(request, 'Store/register.html', {'form': form})
 
 
 def productSearch(request):
@@ -103,7 +103,7 @@ def productSearch(request):
     else:
         return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
 
-    return render(request, 'store/products.html', {'page_obj': page_obj, 'search': search_field, 'cart_product_form': cart_product_form}, )
+    return render(request, 'Store/products.html', {'page_obj': page_obj, 'search': search_field, 'cart_product_form': cart_product_form}, )
 
 
 def trending(request):
@@ -133,4 +133,4 @@ def trending(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'store/products.html', {'page_obj': page_obj, 'category': request.session["category_type"], 'cart_product_form': cart_product_form})
+    return render(request, 'Store/products.html', {'page_obj': page_obj, 'category': request.session["category_type"], 'cart_product_form': cart_product_form})

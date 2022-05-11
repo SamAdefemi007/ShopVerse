@@ -22,7 +22,7 @@ from django.db.models import Q
 
 def homepage(request):
 
-    return render(request, 'store/homepage.html')
+    return render(request, 'Store/homepage.html')
 
 
 def products(request):

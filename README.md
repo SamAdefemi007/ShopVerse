@@ -1,33 +1,24 @@
 <div id="top"></div>
 
--->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/SamAdefemi007/ShopVerse">
+    <img src="logo.png" alt="Logo" width="100" height="100">
   </a>
 
-<h3 align="center">project_title</h3>
+<h3 align="center">ShopVerse</h3>
 
   <p align="center">
-    project_description
+    Shopverse is an ecommerce application for shopping high-end retail wears securely and safely. The application was built in completion of the Enterprise Software development course towards a masters degree program in the University of Aberdeen.
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/SamAdefemi007/ShopVerse"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/github_username/repo_name">View Demo</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
+    <a href="https://github.com/SamAdefemi007/ShopVerse/issues">Report Bug</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
   </p>
 </div>
 
@@ -45,7 +36,6 @@
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -61,22 +51,16 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+<img src="project.png" alt="project" >
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Built With
 
-- [Next.js](https://nextjs.org/)
-- [React.js](https://reactjs.org/)
-- [Vue.js](https://vuejs.org/)
-- [Angular](https://angular.io/)
-- [Svelte](https://svelte.dev/)
-- [Laravel](https://laravel.com)
+- [Django](https://www.djangoproject.com/)
+- [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
+- [HTML](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics)
 - [Bootstrap](https://getbootstrap.com)
-- [JQuery](https://jquery.com)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -84,81 +68,110 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+To setup locally, follow the steps bellow
 
-### Prerequisites
+1. Clone the repo
 
-This is an example of how to list things you need to use the software and how to install them.
-
-- npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
    ```sh
    git clone https://github.com/github_username/repo_name.git
    ```
-3. Install NPM packages
+
+2. Activate the virtual environment
    ```sh
-   npm install
+   Source venv/bin/activate
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = "ENTER YOUR API";
+3. Setup the Postgresql username and password in Database Settings or change the database to sqlite3
+
+   ```sh
+   DATABASES = {
+    'default': {'ENGINE': 'django.db.backends.postgresql','NAME': 'shopverse','USER': 'postgres', 'PASSWORD': 'samuelolaniyan','HOST': '127.0.0.1', 'PORT': '5432'
+    }
+   }
    ```
 
+4. Makemigrations and migrate appropriately
+
+   ```sh
+   Python manage.py makemigrations
+   ```
+
+   ```sh
+   Python manage.py migrate
+   ```
+
+5. Runserver
+   ```sh
+   Python manage.py runserver
+   ```
+
+### Prerequisites
+
+- Django
+  ```sh
+  pip install django
+  ```
+- Behave
+  ```sh
+  pip install behave
+  ```
+- Selenium
+  ```sh
+  pip install selenium
+  ```
+- Faker
+  ```sh
+  pip install faker
+  ```
+- Django-crispy-forms
+  ```sh
+  pip install django-crispy-forms
+  ```
+- psycopg2
+  ```sh
+  brew install psycopg2
+  ```
+
+## Application Usage
+
+- Homepage
+  The application can be accessed from the index directory of the website. The products page can be accessed via three methods from the homepage
+
+  1. The navbar has a "Shop" nav-link that contains the different categories of the available clothes(Men, women, boys and girls)
+     <br>
+     <br>
+     <img src="shopnav.png" alt="project" >
+     <br>
+     <br>
+  2. The products page also can be accessed via the "shop now" button on the homepage and also the different collection card-items on the page.
+
+- Login
+  All users are able to navigate most of the pages of the application except the payments page and the user will be redirected to login when trying to place an order as an anonymous user. To test the application as logged in user, you can signup and create new login details or use the below
+
+  ```sh
+  Username :Admin       Password:  Aberdeen2022
+  ```
+
+A superuser will need to be created to access the admin page of the application
+
+```sh
+python manage.py createsuperuser
+
+```
+
+The superuser page allows access to the admin view of models, as well as the dashboard(see below)
+<img src="dash.png" alt="project" >
+
+- Products and Carts
+  A cart is maintained for each user and users are able to add products to cart via the product page and the product detail page. The cart page also allows users to change the quantity of the item purchased before checkout.
+
+- Checkout
+  The checkout page leads to the payments page which has not been fully implemented and an order is created when payments have been confirmed.
+
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- USAGE EXAMPLES -->
-
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- ROADMAP -->
-
-## Roadmap
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-  - [ ] Nested Feature
-
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- CONTRIBUTING -->
-
-## Contributing
-
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- LICENSE -->
 
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Free to use for all purposes
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -166,9 +179,9 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Samuel Olaniyan - t14so21@abdn.ac.uk
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Project Link: [https://github.com/SamAdefemi007/ShopVerse](https://github.com/SamAdefemi007/ShopVerse)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -176,25 +189,10 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 
 ## Acknowledgments
 
-- []()
-- []()
-- []()
+- Data gotten from [https://data.world/datasets/ecommerce](https://data.world/datasets/ecommerce)
+- Page Design Inspiration [https://htmlcodex.com/?s=eshopper](https://htmlcodex.com/?s=eshopper)
+- Page Design Inspiration [https://templatemo.com/tm-571-hexashop](https://templatemo.com/tm-571-hexashop)
+- Page Design Inspiration [https://html.design/?s=famm](https://html.design/?s=famm)
+- Code Attribution [Django 3 By Example: Build powerful and reliable Python web applications from scratch, 3rd Edition]
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.png

@@ -1,7 +1,10 @@
-from django.test import TestCase
-from django.test import TestCase, SimpleTestCase, Client
+from urllib import response
+from django.test import TestCase, SimpleTestCase, Client, RequestFactory
 from django.urls import reverse, resolve
+from requests import Response, request
 from Cart.views import cart_add, cart_clear, cart_remove, cart_detail, checkout, payments, order_complete
+from .shoppingCart import Cart
+from django.contrib.sessions.middleware import SessionMiddleware
 # Create your tests here.
 
 
@@ -62,4 +65,3 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'Cart/checkout.html')
         self.assertContains(response, "Billing Address")
-

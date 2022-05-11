@@ -56,13 +56,16 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li>
-                <a class="dropdown-item" href="#">Clothing&raquo;</a>
+                <a class="dropdown-item" id="clothing" href="#"
+                  >Clothing&raquo;</a
+                >
                 <ul class="dropdown-menu dropdown-submenu">
                   <li>
                     <a
                       class="dropdown-item"
                       href="{% url 'Store:products'%}?category_type=Men"
                       value="Men"
+                      id="Men"
                       >Men</a
                     >
                   </li>

@@ -196,3 +196,5 @@ Project Link: [https://github.com/SamAdefemi007/ShopVerse](https://github.com/Sa
 - Code Attribution [Django 3 By Example: Build powerful and reliable Python web applications from scratch, 3rd Edition]
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+##Extras for

@@ -47,7 +47,6 @@ def checkout(request):
     return render(request, 'Cart/checkout.html', {'cart': cart})
 
 
-
 @login_required
 def payments(request):
     cart = Cart(request)

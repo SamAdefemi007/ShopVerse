@@ -1,0 +1,11 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="container">
+    <div>
+        <h3>Your order has been placed successfully. The receipt and delivery details has been sent to your email
+            address
+        </h3>
+
+        <a href="{% url 'Store:products' %}">Please click here to continue shopping</a>
+    </div>
+</div>
+{% endblock %}

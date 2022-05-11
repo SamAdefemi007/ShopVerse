@@ -12,3 +12,7 @@ class CartAddProductForm(forms.Form):
     override = forms.BooleanField(required=False,
                                   initial=False,
                                   widget=forms.HiddenInput)
+
+
+class PaymentForm(forms.Form):
+    Card_Number = forms.CharField(max_length=200)

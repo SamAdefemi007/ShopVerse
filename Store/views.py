@@ -1,4 +1,5 @@
 
+from math import prod
 from uuid import uuid4
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -28,15 +29,33 @@ def products(request):
     productObj = {}
     cart_product_form = CartAddProductForm()
     category_type = request.GET.get("category_type")
+    price = request.GET.get("price")
     request.session["category_type"] = category_type
+    orderby = request.GET.get('orderby')
 
-    if category_type:
+    if price:
+        if price == "0-25":
+            productObj = Products.objects.filter(
+                discounted_price__lte=25).order_by('discounted_price')
+        elif price == "26-50":
+            productObj = Products.objects.filter(
+                discounted_price__gt=25).filter(discounted_price__lte=50).order_by('discounted_price')
+        elif price == "51-75":
+            productObj = Products.objects.filter(
+                discounted_price__gt=50).filter(discounted_price__lte=75).order_by('discounted_price')
+        else:
+            productObj = Products.objects.filter(
+                discounted_price__gt=75).order_by('discounted_price')
+
+    elif category_type:
         productObj = Products.objects.filter(
             category__title=category_type)
 
     else:
-        print("we are here")
         productObj = Products.objects.all()
+
+    if orderby == 'rating':
+        productObj = productObj.order_by('-Rating')
 
     paginator = Paginator(productObj, 24)
     page_number = request.GET.get('page')
@@ -70,31 +89,6 @@ def register(request):
     return render(request, 'store/register.html', {'form': form})
 
 
-def checkout(request):
-
-    if request.user.is_authenticated:
-        customer = Customer.objects.get(user=request.user)
-        cart, created = Cart.objects.get_or_create(customer=customer)
-        cartitems = cart.items.all()
-        print(cart.get_cart_total)
-    else:
-        cartitems = []
-        cart = {'get_cart_total': 0, 'total_items': 0}
-    return render(request, 'store/checkout.html', {'cartitems': cartitems, 'cart': cart})
-
-
-def order(request):
-    if request.user.is_authenticated:
-        customer = Customer.objects.get(user=request.user)
-        order, created = Order.objects.get_or_create(customer=customer)
-        cartitems = cart.items.all()
-        print(cart.get_cart_total)
-    else:
-        cartitems = []
-        cart = {'get_cart_total': 0, 'total_items': 0}
-    return render(request, 'store/cart.html', {'cartitems': cartitems, 'cart': cart})
-
-
 def productSearch(request):
     search_field = request.GET.get("search")
     cart_product_form = CartAddProductForm()
@@ -110,3 +104,33 @@ def productSearch(request):
         return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
 
     return render(request, 'store/products.html', {'page_obj': page_obj, 'search': search_field, 'cart_product_form': cart_product_form}, )
+
+
+def trending(request):
+    cart_product_form = CartAddProductForm()
+    productObj = Products.objects.all().order_by('orderitem')[:100]
+    price = request.GET.get("price")
+    category_type = request.GET.get("category_type")
+
+    if price:
+        if price == "0-25":
+            productObj = productObj.objects.filter(
+                discounted_price__lte=25).order_by('discounted_price')
+        elif price == "26-50":
+            productObj = productObj.objects.filter(
+                discounted_price__gt=25).filter(discounted_price__lte=50).order_by('discounted_price')
+        elif price == "51-75":
+            productObj = productObj.objects.filter(
+                discounted_price__gt=50).filter(discounted_price__lte=75).order_by('discounted_price')
+        else:
+            productObj = productObj.objects.filter(
+                discounted_price__gt=75).order_by('discounted_price')
+
+    elif category_type:
+        productObj = productObj.objects.filter(
+            category__title=category_type)
+    paginator = Paginator(productObj, 24)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'store/products.html', {'page_obj': page_obj, 'category': request.session["category_type"], 'cart_product_form': cart_product_form})

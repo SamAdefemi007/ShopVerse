@@ -1,9 +1,16 @@
+from ast import Or
+from turtle import title
+from typing import Collection
 from unicodedata import category
 from django.test import TestCase
 from django.test import TestCase, SimpleTestCase, Client
 from django.urls import reverse, resolve
 from Store.views import homepage, products, productDetail, productSearch, trending, register
+from Store.models import Products, Order, OrderItem, Category, Customer, Collection
+from django.contrib.auth.models import User
 # Create your tests here.
+
+# Testing the urls
 
 
 class TestUrls(SimpleTestCase):
@@ -31,6 +38,8 @@ class TestUrls(SimpleTestCase):
     def test_productsearch_url_resolves(self):
         url = reverse('Store:search')
         self.assertEqual(resolve(url).func, productSearch)
+
+# Testing the views of the application
 
 
 class TestViews(TestCase):
@@ -89,3 +98,59 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'navbar.html')
         self.assertTemplateUsed(response, 'footer.html')
         self.assertContains(response, "cart")
+
+
+# Testing Models
+class ModelTest(TestCase):
+
+    def setUp(self):
+        self.collection = Collection.objects.create(title="clothing")
+        self.category = Category.objects.create(title="Men")
+        self.user = User.objects.create_user(first_name="django", last_name="test",
+                                             email="djangotest@shopverse.com", password='password', username="django_test")
+        self.customer = Customer.objects.get(
+            user=self.user)
+        self.customer.phone = "2342234423",
+        self.customer.birth_date = "09/04/201"
+        self.product = Products.objects.create(
+            size="L", brand="Nike", unit_price=10.00, discounted_price=8.50, image="http://www.google.com", title="Nike sports",
+            material="cotton", care="dry wash", color="black", details="Test product", collection=self.collection, category=self.category, style="outdoor", kind="breathable wear", fit="size 6", Rating=4.5)
+        self.order = Order.objects.create(
+            payment_status="C", customer=self.customer)
+
+    def testCollectionModel(self):
+        self.assertEquals(str(self.collection), 'clothing')
+        self.assertTrue(isinstance(self.collection, Collection))
+
+    def testCategoryModel(self):
+        self.assertEquals(str(self.category), 'Men')
+        self.assertTrue(isinstance(self.category, Category))
+
+    def testProductModel(self):
+
+        product = self.product
+
+        self.assertEquals(str(product), 'clothing: Nike sports')
+        self.assertTrue(isinstance(product, Products))
+
+    def testCustomerModel(self):
+        user = self.user
+        customer = self.customer
+        customer.phone = "2342234423",
+        customer.birth_date = "09/04/201"
+
+        self.assertEquals(str(customer), 'django test')
+        self.assertTrue(isinstance(user, User))
+        self.assertTrue(isinstance(customer, Customer))
+
+    def testOrderModel(self):
+        order = self.order
+        self.assertEquals(str(order), 'django test C')
+        self.assertTrue(isinstance(order, Order))
+
+    def testOrderItemModel(self):
+        orderitem = OrderItem.objects.create(
+            order=self.order, product=self.product, quantity=5)
+        self.assertEquals(
+            str(orderitem), 'clothing: Nike sports by django test C')
+        self.assertTrue(isinstance(orderitem, OrderItem))

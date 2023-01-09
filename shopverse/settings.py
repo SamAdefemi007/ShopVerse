@@ -82,16 +82,11 @@ WSGI_APPLICATION = 'shopverse.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+DATABASE_URL = 'postgresql://postgres:hiJ6iUMKmUXL7OPcpXzV@containers-us-west-112.railway.app:5766/railway'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'shopverse',
-        'USER': 'postgres',
-        'PASSWORD': 'samuelolaniyan',
-        'HOST': '127.0.0.1',
-        'PORT': '5432'
-    }
+    'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
+    
 }
 
 
